@@ -22,6 +22,7 @@ RUN useradd --create-home --home-dir $HOME user \
 	&& chown -R user:user $HOME
 
 ENV LANG C.UTF-8
+ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && \
     apt-get install -y python-pip \
@@ -37,5 +38,7 @@ RUN cd / && \
     wget -q http://download.jetbrains.com/python/pycharm-community-2019.1.1.tar.gz && \
     tar xvfz pycharm-community-2019.1.1.tar.gz && \ 
     rm pycharm-community-2019.1.1.tar.gz 
+
+USER user
 
 CMD [ "/pycharm-community-2019.1.1/bin/pycharm.sh"]
