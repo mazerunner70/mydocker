@@ -1,5 +1,9 @@
 
 function init_mac_os() {
+  # don't forget that the xquartz function will need to be service will need to be installed:
+  # brew install socat
+  # brew cask install xquartz
+  # open -a XQuartz
   printf "Initialising MacOS\n"
   if lsof -i :6000 >/dev/null ; then
     printf "Found socat started\n"
