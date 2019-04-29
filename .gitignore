@@ -1,0 +1,6 @@
+# .gitignore
+
+# nohup output #
+################
+nohup.out
+
