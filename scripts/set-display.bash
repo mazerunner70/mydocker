@@ -14,11 +14,13 @@ function init_mac_os() {
   fi
     
   export DOCKER_DISPLAY="docker.for.mac.host.internal:0"
+  export SOCKET_MAPPING=
 }
 
 function init_linux() {
   printf "Initialising Linux\n"
   export DOCKER_DISPLAY=${DISPLAY}
+  export SOCKET_MAPPING=/tmp/.X11-unix
 }
 
 function init_display() {
@@ -27,6 +29,9 @@ function init_display() {
   case $os in
     Darwin)
       init_mac_os
+      ;;
+    Linux)
+      init_linux
       ;;
   esac
 }

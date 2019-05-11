@@ -31,6 +31,8 @@ if [ "$1" != "." ]; then
   project_dir=$1
 fi
 
-docker run -iv $HOME/.docker-volumes/pycharm/userconfig${pycharm_version_configdir}:/home/user/.PyCharmCE${pycharm_version_configdir} -v $project_dir:/home/user/PycharmProjects -e DISPLAY=${DOCKER_DISPLAY} pycharm # /bin/bash
+mkdir -p $HOME/.docker-volumes/pycharm/userconfig${pycharm_version_configdir}
+
+docker run -iv $HOME/.docker-volumes/pycharm/userconfig${pycharm_version_configdir}:/home/user/.PyCharmCE${pycharm_version_configdir} -v $project_dir:/home/user/PycharmProjects -v $SOCKET_MAPPING:$SOCKET_MAPPING -e DISPLAY=${DOCKER_DISPLAY} pycharm # /bin/bash
 
 

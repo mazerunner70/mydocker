@@ -9,5 +9,5 @@ source ./props.bash
 # docker build script
 docker build -t ${docker_tag} ..
 
-ln -s $script_dir/run.bash /usr/local/bin/"d$docker_tag"
+sudo ln -s $script_dir/run.bash /usr/local/bin/"d$docker_tag"
 
