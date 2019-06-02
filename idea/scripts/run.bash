@@ -26,13 +26,13 @@ if [ $# -ne 1 ]; then
   exit 1
 fi
 
-project_dir=$(pwd)
+user_dir=$(pwd)
 if [ "$1" != "." ]; then
-  project_dir=$1
+  user_dir=$1
 fi
 
 mkdir -p $HOME/.docker-volumes/idea/userconfig${idea_version_configdir}
 
-docker run -iv $HOME/.docker-volumes/idea/userconfig${idea_version_configdir}:/home/user/.IdeaIC${idea_version_configdir} -v $project_dir:/home/user/IdeaProjects -v $SOCKET_MAPPING:$SOCKET_MAPPING -e DISPLAY=${DOCKER_DISPLAY} idea  #/bin/bash
+docker run -i -v $user_dir:/home/user -v $SOCKET_MAPPING:$SOCKET_MAPPING -e DISPLAY=${DOCKER_DISPLAY} idea  #/bin/bash
 
 
