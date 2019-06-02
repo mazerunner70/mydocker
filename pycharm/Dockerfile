@@ -1,4 +1,4 @@
-FROM debian:buster-slim
+FROM ubuntu:18.04 
 LABEL maintainer "Jessie Frazelle <jess@linux.com>"
 
 RUN apt-get update && apt-get install -y \
@@ -30,8 +30,17 @@ RUN apt-get update && \
       wget \
       x11-utils \
 	xfonts-base \
-      xpra
+      xpra \
+      software-properties-common \
+      python3-pip
 
+RUN pip3 install setuptools --upgrade      
+
+#Install python3.6
+# (first line is workaround: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=863199)
+#RUN add-apt-repository 'deb http://ppa.launchpad.net/deadsnakes/ppa/ubuntu bionic main' && \
+#    apt-get update && \
+#    apt-get install -y python3.6
 
 # install PyCharm
 RUN cd / && \
