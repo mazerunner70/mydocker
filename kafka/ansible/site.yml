@@ -1,0 +1,6 @@
+---
+- import_playbook: vm.yml
+- import_playbook: common-dev.yml
+- import_playbook: docker.yml
+  #- import_playbook: python-dev.yml
+
