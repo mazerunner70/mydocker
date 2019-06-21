@@ -1,0 +1,10 @@
+.IdeaIC2019.1
+.android
+.idea-build
+.ivy2
+.java
+.sbt
+.cache
+target/
+.idea/
+out/
