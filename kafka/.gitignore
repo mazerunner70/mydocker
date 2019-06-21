@@ -1,0 +1,11 @@
+# .gitignore
+
+# nohup output #
+################
+nohup.out
+
+
+.vagrant
+vault_password.txt
+*.retry
+*.log

@@ -1,0 +1,36 @@
+- name: Update apt-cache 
+  become: true # notes from https://stackoverflow.com/questions/41535838/how-to-run-apt-update-and-upgrade-via-ansible-shell
+  apt: 
+    update_cache: yes
+    upgrade: yes
+    cache_valid_time: 86400 #one day
+
+- name: be sure vim is installed
+  become: true
+  apt: name="{{'vim'}}" state=latest install_recommends=no # This style described in http://docs.ansible.com/ansible/latest/playbooks_loops.html#standard-loops
+
+  # alternative to tasksell
+  #- name: Install desktop components
+  #become: true
+  #apt: name={{item}} state=latest install_recommends=no # This style described in http://docs.ansible.com/ansible/latest/playbooks_loops.html#standard-loops
+  #with_items:
+  #    - tasksel
+  #    #- ubuntu-gnome-desktop
+  #    #- ubuntu-desktop
+  #
+- #name: Use tasksel to install gnome
+  #become: true
+  #shell: DEBIAN_FRONTEND=noninteractive; tasksel install ubuntu-desktop
+
+- name: Install ubuntu desktop
+  become: yes
+  apt: name = {{ 'ubuntu-desktop' }} state=latest
+
+- name: Install firefox
+  become: true
+  apt: name="{{'firefox'}}" state=latest install_recommends=no
+
+- name: Tell user to reload box
+  debug:
+    msg: ensure you do a 'vagrant reload'
+
