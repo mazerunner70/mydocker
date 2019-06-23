@@ -32,10 +32,10 @@ class Producer {
     val fibonacci = new Fibonacci()
     val timeZero = System.currentTimeMillis()
 
-    println("Starting producer 1 target:"+props.getProperty("bootstrap.servers"))
+    println("Starting producer 2 target:"+props.getProperty("bootstrap.servers"))
     for( i<- 1 to 5000 * 1000) {
       val value = fibonacci.fib3(i).toString()
-      println (", Produced "+value)
+      println (", sending "+value)
       val timestamp = System.currentTimeMillis() - timeZero
       val producerRecord = new ProducerRecord(TOPIC, timestamp, value)
       val result = producer.send(producerRecord)
