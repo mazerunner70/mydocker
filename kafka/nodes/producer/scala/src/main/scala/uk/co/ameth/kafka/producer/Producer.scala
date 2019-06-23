@@ -23,24 +23,24 @@ class Producer {
     props.put("batch.size", "16384")
     props.put("linger.ms", "1")
     props.put("buffer.memory", "33554432")
-    props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer")
+    props.put("key.serializer", "org.apache.kafka.common.serialization.LongSerializer")
     props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer")
-    val producer = new KafkaProducer[Long, Long](props)
+    val producer = new KafkaProducer[Long, String](props)
 
     val TOPIC = "fibonacci-topic"
 
     val fibonacci = new Fibonacci()
     val timeZero = System.currentTimeMillis()
 
-    println("Starting")
+    println("Starting producer 1 target:"+props.getProperty("bootstrap.servers"))
     for( i<- 1 to 5000 * 1000) {
-      val value = fibonacci.fib3(i)
-      print (", "+value)
+      val value = fibonacci.fib3(i).toString()
+      println (", Produced "+value)
       val timestamp = System.currentTimeMillis() - timeZero
       val producerRecord = new ProducerRecord(TOPIC, timestamp, value)
       val result = producer.send(producerRecord)
-      println(result)
-      Thread.sleep(100)
+//      println(result.get)
+      Thread.sleep(1000)
     }
   }
 
