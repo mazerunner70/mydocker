@@ -10,12 +10,12 @@ import scala.jdk.CollectionConverters._
 object Consumer {
 
   def main(args: Array[String]): Unit = {
-    val producer = new Consumer()
+    val producer = new Consumer(args(0))
     producer.run()
   }
 
 }
-class Consumer {
+class Consumer(groupiD: String) {
 
   def run(): Unit = {
     import java.util.Properties
@@ -27,7 +27,8 @@ class Consumer {
 
     props.put("key.deserializer", "org.apache.kafka.common.serialization.LongDeserializer")
     props.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer")
-    props.put("group.id", "something")
+    props.put("group.id", groupiD)
+    props.put("auto.offset.reset", "earliest")
 
     val consumer = new KafkaConsumer[Long, String](props)
 
@@ -36,7 +37,7 @@ class Consumer {
     while (true) {
       val records = consumer.poll(100)
       for (record <- records.asScala) {
-        println(record)
+        println("Consumer("+groupiD+"):" + record.key + ", " + record.value)
       }
     }
   }

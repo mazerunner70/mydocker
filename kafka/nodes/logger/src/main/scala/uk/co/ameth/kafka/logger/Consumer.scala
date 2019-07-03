@@ -15,6 +15,7 @@ class Consumer {
 
 
   var topic = ""
+  var groupId = ""
 
   def init(): Unit = {
     import java.util.Properties
@@ -24,7 +25,8 @@ class Consumer {
 
     props.put("key.deserializer", "org.apache.kafka.common.serialization.LongDeserializer")
     props.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer")
-    props.put("group.id", "something")
+    props.put("group.id", groupId)
+    props.put("auto.offset.reset", "earliest")
 
     this.consumer = new KafkaConsumer[Long, String](props)
 
@@ -36,7 +38,7 @@ class Consumer {
     while (true) {
       val records = consumer.poll(100)
       for (record <- records.asScala) {
-        println(topic+": ("+record.key()+", "+record.value()+")")
+        println("logger:"+topic+"("+groupId+"): ("+record.key()+", "+record.value()+")")
       }
     }
   }
